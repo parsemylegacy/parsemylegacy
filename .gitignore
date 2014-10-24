@@ -1,0 +1,17 @@
+#Idea
+*.iml
+idea/
+
+#Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+#Jenv
+.java-version
+
+#Temporary files
+*~
