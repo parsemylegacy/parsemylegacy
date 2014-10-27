@@ -2,6 +2,8 @@ package org.parsemylegacy.parser;
 
 import java.io.*;
 import java.util.List;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.toList;
 
@@ -31,5 +33,10 @@ public class Parser {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    public <T> Stream<T> stream(Class<T> clazz) {
+        Iterable<T> iterable = () -> parse(clazz).iterator();
+        return StreamSupport.stream(iterable.spliterator(), false);
     }
 }
