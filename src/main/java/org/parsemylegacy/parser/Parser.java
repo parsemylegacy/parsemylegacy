@@ -1,4 +1,4 @@
-package org.parsemylegacy;
+package org.parsemylegacy.parser;
 
 public class Parser {
 

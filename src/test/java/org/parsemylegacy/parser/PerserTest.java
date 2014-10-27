@@ -1,9 +1,9 @@
-package org.parsemylegacy;
+package org.parsemylegacy.parser;
 
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.parsemylegacy.Parser.parser;
+import static org.parsemylegacy.parser.Parser.parser;
 
 public class PerserTest {
 
