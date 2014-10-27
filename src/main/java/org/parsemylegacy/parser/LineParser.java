@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static java.lang.Math.min;
 import static org.parsemylegacy.definition.LineDefinition.fromClass;
 
 public class LineParser {
@@ -28,8 +29,8 @@ public class LineParser {
                         instance,
                         line.substring(
                                 columnDefinition.getFrom() - 1,
-                                columnDefinition.getTo()
-                        )
+                                min(columnDefinition.getTo(), line.length())
+                        ).trim()
                 );
             }
 
