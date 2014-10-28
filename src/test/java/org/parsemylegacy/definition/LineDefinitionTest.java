@@ -2,6 +2,7 @@ package org.parsemylegacy.definition;
 
 import org.junit.Test;
 import org.parsemylegacy.examples.Person;
+import org.parsemylegacy.utils.TrimDirection;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -22,8 +23,8 @@ public class LineDefinitionTest {
         assertThat(columnDefinitions)
                 .hasSize(2)
                 .containsExactly(
-                        new ColumnDefinition(personFirstNameSetter, 1, 30),
-                        new ColumnDefinition(personLastNameSetter, 31, 60)
+                        new ColumnDefinition(personFirstNameSetter, 1, 30).withTrim(true).withTrimCharacter(' ').withTrimDirection(TrimDirection.RIGHT),
+                        new ColumnDefinition(personLastNameSetter, 31, 60).withTrim(true).withTrimCharacter(' ').withTrimDirection(TrimDirection.RIGHT)
                 );
     }
 

@@ -9,6 +9,7 @@ import java.util.List;
 
 import static java.lang.Math.min;
 import static org.parsemylegacy.definition.LineDefinitions.getForClass;
+import static org.parsemylegacy.utils.Strings.trim;
 
 public class LineParser {
 
@@ -21,14 +22,15 @@ public class LineParser {
 
             List<ColumnDefinition> columnDefinitions = lineDefinition.getColumnDefinitions();
             for (ColumnDefinition columnDefinition : columnDefinitions) {
-                Method setter = columnDefinition.getSetter();
-                setter.invoke(
-                        instance,
-                        line.substring(
-                                columnDefinition.getFrom() - 1,
-                                min(columnDefinition.getTo(), line.length())
-                        ).trim()
+                Method setter = columnDefinition.setter();
+                String columnText = line.substring(
+                        columnDefinition.from() - 1,
+                        min(columnDefinition.to(), line.length())
                 );
+                String trimmedColumnText = columnDefinition.trim()
+                        ? trim(columnText, columnDefinition.trimCharacter(), columnDefinition.trimDirection())
+                        : columnText;
+                setter.invoke(instance, trimmedColumnText);
             }
 
             return instance;

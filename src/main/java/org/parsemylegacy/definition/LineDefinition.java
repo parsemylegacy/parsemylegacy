@@ -38,6 +38,9 @@ public class LineDefinition {
                                         column.from(),
                                         column.to()
                                 )
+                                        .withTrim(column.trim())
+                                        .withTrimCharacter(column.trimCharacter())
+                                        .withTrimDirection(column.trimDirection())
                         );
                     }
                 }

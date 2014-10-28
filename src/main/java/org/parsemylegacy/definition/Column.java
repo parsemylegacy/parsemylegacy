@@ -1,5 +1,7 @@
 package org.parsemylegacy.definition;
 
+import org.parsemylegacy.utils.TrimDirection;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,5 +14,11 @@ public @interface Column {
     int from();
 
     int to();
+
+    boolean trim() default true;
+
+    char trimCharacter() default ' ';
+
+    TrimDirection trimDirection() default TrimDirection.RIGHT;
 
 }

@@ -13,7 +13,7 @@ public class ColumnDefinitionTest {
     public void should_calculate_immutable_hashcode() throws Exception {
         Method personFirstNameSetter = Person.class.getDeclaredMethod("setFirstname", String.class);
         ColumnDefinition columnDefinition = new ColumnDefinition(personFirstNameSetter, 1, 25);
-        assertThat(columnDefinition.hashCode()).isEqualTo(1605189968);
+        assertThat(columnDefinition.hashCode()).isEqualTo(48463024);
     }
 
     @Test
