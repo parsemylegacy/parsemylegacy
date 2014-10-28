@@ -6,18 +6,15 @@ import org.parsemylegacy.definition.LineDefinition;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static java.lang.Math.min;
-import static org.parsemylegacy.definition.LineDefinition.fromClass;
+import static org.parsemylegacy.definition.LineDefinitions.getForClass;
 
 public class LineParser {
 
-    private static Map<Class<?>, LineDefinition> lineDefinitionCache = new ConcurrentHashMap<>();
 
     public static <T> T parse(Class<T> clazz, String line) {
-        LineDefinition lineDefinition = lineDefinitionCache.computeIfAbsent(clazz, (key) -> fromClass(clazz));
+        LineDefinition lineDefinition = getForClass(clazz);
 
         try {
             T instance = clazz.newInstance();

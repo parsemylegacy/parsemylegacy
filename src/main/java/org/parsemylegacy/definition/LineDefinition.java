@@ -7,7 +7,7 @@ import java.util.List;
 
 public class LineDefinition {
 
-    private List<ColumnDefinition> columnDefinitions = new ArrayList<ColumnDefinition>();
+    private List<ColumnDefinition> columnDefinitions = new ArrayList();
 
     public LineDefinition add(ColumnDefinition columnDefinition) {
         columnDefinitions.add(columnDefinition);
@@ -15,7 +15,7 @@ public class LineDefinition {
     }
 
     public List<ColumnDefinition> getColumnDefinitions() {
-        ArrayList<ColumnDefinition> copy = new ArrayList<ColumnDefinition>();
+        ArrayList<ColumnDefinition> copy = new ArrayList();
         copy.addAll(columnDefinitions);
         return copy;
     }
