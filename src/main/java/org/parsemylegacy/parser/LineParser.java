@@ -7,14 +7,14 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import static java.lang.Math.min;
-import static org.parsemylegacy.definition.LineDefinitions.getForClass;
+import static org.parsemylegacy.definition.LineDefinitions.forClass;
 import static org.parsemylegacy.utils.Strings.trim;
 
 public class LineParser {
 
 
     public static <T> T parse(Class<T> clazz, String line) {
-        LineDefinition lineDefinition = getForClass(clazz);
+        LineDefinition lineDefinition = forClass(clazz);
 
         try {
             T instance = clazz.newInstance();

@@ -10,7 +10,7 @@ public class LineDefinitions {
 
     private static Map<Class<?>, LineDefinition> lineDefinitionCache = new ConcurrentHashMap<>();
 
-    public static LineDefinition getForClass(Class<?> clazz) {
+    public static LineDefinition forClass(Class<?> clazz) {
         return lineDefinitionCache.computeIfAbsent(clazz, (key) -> fromClass(clazz));
     }
 
