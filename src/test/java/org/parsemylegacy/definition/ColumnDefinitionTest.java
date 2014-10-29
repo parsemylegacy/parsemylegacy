@@ -11,10 +11,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ColumnDefinitionTest {
 
     @Test
-    public void should_calculate_immutable_hashcode() throws Exception {
+    public void should_calculate_hashcode() throws Exception {
         Field personFirstNameField = Person.class.getDeclaredField("firstname");
-        ColumnDefinition columnDefinition = new ColumnDefinition(personFirstNameField, 1, 25, true, ' ', TrimDirection.RIGHT);
-        assertThat(columnDefinition.hashCode()).isEqualTo(-1005108454);
+        ColumnDefinition columnDefinition1 = new ColumnDefinition(personFirstNameField, 1, 25, true, ' ', TrimDirection.RIGHT);
+        ColumnDefinition columnDefinition2 = new ColumnDefinition(personFirstNameField, 1, 25, true, ' ', TrimDirection.RIGHT);
+        assertThat(columnDefinition1.hashCode()).isEqualTo(columnDefinition2.hashCode());
     }
 
     @Test
