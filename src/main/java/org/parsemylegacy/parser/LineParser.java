@@ -3,8 +3,7 @@ package org.parsemylegacy.parser;
 import org.parsemylegacy.definition.ColumnDefinition;
 import org.parsemylegacy.definition.LineDefinition;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 import java.util.List;
 
 import static java.lang.Math.min;
@@ -22,7 +21,7 @@ public class LineParser {
 
             List<ColumnDefinition> columnDefinitions = lineDefinition.getColumnDefinitions();
             for (ColumnDefinition columnDefinition : columnDefinitions) {
-                Method setter = columnDefinition.setter();
+                Field field = columnDefinition.field();
                 String columnText = line.substring(
                         columnDefinition.from() - 1,
                         min(columnDefinition.to(), line.length())
@@ -30,11 +29,11 @@ public class LineParser {
                 String trimmedColumnText = columnDefinition.trim()
                         ? trim(columnText, columnDefinition.trimCharacter(), columnDefinition.trimDirection())
                         : columnText;
-                setter.invoke(instance, trimmedColumnText);
+                field.set(instance, trimmedColumnText);
             }
 
             return instance;
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             throw new ParseException("Cannot parse line", e);
         }
     }

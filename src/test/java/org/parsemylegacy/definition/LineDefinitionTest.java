@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.parsemylegacy.examples.Person;
 import org.parsemylegacy.utils.TrimDirection;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,14 +17,14 @@ public class LineDefinitionTest {
         LineDefinition lineDefinition = fromClass(Person.class);
         assertThat(lineDefinition).isNotNull();
 
-        Method personFirstNameSetter = Person.class.getDeclaredMethod("setFirstname", String.class);
-        Method personLastNameSetter = Person.class.getDeclaredMethod("setLastname", String.class);
+        Field personFirstNameField = Person.class.getDeclaredField("firstname");
+        Field personLastNameField = Person.class.getDeclaredField("lastname");
         List<ColumnDefinition> columnDefinitions = lineDefinition.getColumnDefinitions();
         assertThat(columnDefinitions)
                 .hasSize(2)
                 .containsExactly(
-                        new ColumnDefinition(personFirstNameSetter, 1, 30).withTrim(true).withTrimCharacter(' ').withTrimDirection(TrimDirection.RIGHT),
-                        new ColumnDefinition(personLastNameSetter, 31, 60).withTrim(true).withTrimCharacter(' ').withTrimDirection(TrimDirection.RIGHT)
+                        new ColumnDefinition(personFirstNameField, 1, 30).withTrim(true).withTrimCharacter(' ').withTrimDirection(TrimDirection.RIGHT),
+                        new ColumnDefinition(personLastNameField, 31, 60).withTrim(true).withTrimCharacter(' ').withTrimDirection(TrimDirection.RIGHT)
                 );
     }
 

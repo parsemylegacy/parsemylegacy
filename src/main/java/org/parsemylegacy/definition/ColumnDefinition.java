@@ -2,27 +2,27 @@ package org.parsemylegacy.definition;
 
 import org.parsemylegacy.utils.TrimDirection;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Objects;
 
 public class ColumnDefinition {
 
-    private Method setter;
+    private Field field;
     private Integer from;
     private Integer to;
     private Boolean trim;
     private Character trimCharacter;
     private TrimDirection trimDirection;
 
-    public ColumnDefinition(Method setter, Integer from, Integer to) {
-        this.setter = setter;
+    public ColumnDefinition(Field field, Integer from, Integer to) {
+        this.field = field;
         this.from = from;
         this.to = to;
     }
 
-    public Method setter() {
-        return setter;
+    public Field field() {
+        return field;
     }
 
     public Integer from() {
@@ -67,13 +67,13 @@ public class ColumnDefinition {
         }
         ColumnDefinition cd = (ColumnDefinition) obj;
         return Arrays.equals(
-                new Object[]{setter, from, to, trim, trimCharacter, trimDirection},
-                new Object[]{cd.setter, cd.from, cd.to, cd.trim, cd.trimCharacter, cd.trimDirection}
+                new Object[]{field, from, to, trim, trimCharacter, trimDirection},
+                new Object[]{cd.field, cd.from, cd.to, cd.trim, cd.trimCharacter, cd.trimDirection}
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(setter.getName(), from, to, trim, trimCharacter, trimDirection);
+        return Objects.hash(field.getName(), from, to, trim, trimCharacter, trimDirection);
     }
 }
