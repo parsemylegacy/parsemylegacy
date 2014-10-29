@@ -23,8 +23,8 @@ public class LineDefinitionTest {
         assertThat(columnDefinitions)
                 .hasSize(2)
                 .containsExactly(
-                        new ColumnDefinition(personFirstNameField, 1, 30).withTrim(true).withTrimCharacter(' ').withTrimDirection(TrimDirection.RIGHT),
-                        new ColumnDefinition(personLastNameField, 31, 60).withTrim(true).withTrimCharacter(' ').withTrimDirection(TrimDirection.RIGHT)
+                        new ColumnDefinition(personFirstNameField, 1, 30, true, ' ', TrimDirection.RIGHT),
+                        new ColumnDefinition(personLastNameField, 31, 60, true, ' ', TrimDirection.RIGHT)
                 );
     }
 

@@ -30,13 +30,9 @@ public class LineDefinition {
                     field.setAccessible(true);
                     lineDefinition.add(
                             new ColumnDefinition(
-                                    field,
-                                    column.from(),
-                                    column.to()
+                                    field, column.from(), column.to(),
+                                    column.trim(), column.trimCharacter(), column.trimDirection()
                             )
-                                    .withTrim(column.trim())
-                                    .withTrimCharacter(column.trimCharacter())
-                                    .withTrimDirection(column.trimDirection())
                     );
                 }
             }

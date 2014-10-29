@@ -8,56 +8,47 @@ import java.util.Objects;
 
 public class ColumnDefinition {
 
-    private Field field;
-    private Integer from;
-    private Integer to;
-    private Boolean trim;
-    private Character trimCharacter;
-    private TrimDirection trimDirection;
+    private final Field field;
+    private final int from;
+    private final int to;
+    private final boolean trim;
+    private final char trimCharacter;
+    private final TrimDirection trimDirection;
 
-    public ColumnDefinition(Field field, Integer from, Integer to) {
+    public ColumnDefinition(
+            Field field, int from, int to,
+            boolean trim, char trimCharacter, TrimDirection trimDirection
+    ) {
         this.field = field;
         this.from = from;
         this.to = to;
+        this.trim = trim;
+        this.trimCharacter = trimCharacter;
+        this.trimDirection = trimDirection;
     }
 
     public Field field() {
         return field;
     }
 
-    public Integer from() {
+    public int from() {
         return from;
     }
 
-    public Integer to() {
+    public int to() {
         return to;
     }
 
-    public Boolean trim() {
+    public boolean trim() {
         return trim;
     }
 
-    public Character trimCharacter() {
+    public char trimCharacter() {
         return trimCharacter;
     }
 
     public TrimDirection trimDirection() {
         return trimDirection;
-    }
-
-    public ColumnDefinition withTrim(Boolean trim) {
-        this.trim = trim;
-        return this;
-    }
-
-    public ColumnDefinition withTrimCharacter(Character trimCharacter) {
-        this.trimCharacter = trimCharacter;
-        return this;
-    }
-
-    public ColumnDefinition withTrimDirection(TrimDirection trimDirection) {
-        this.trimDirection = trimDirection;
-        return this;
     }
 
     @Override
