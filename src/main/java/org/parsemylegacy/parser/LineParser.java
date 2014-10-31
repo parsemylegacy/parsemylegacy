@@ -10,10 +10,15 @@ import static java.lang.Math.min;
 import static org.parsemylegacy.definition.LineDefinitions.forClass;
 import static org.parsemylegacy.utils.Strings.trim;
 
-public class LineParser {
+public class LineParser<T> {
 
+    private final Class<T> clazz;
 
-    public static <T> T parse(Class<T> clazz, String line) {
+    public LineParser(Class<T> clazz) {
+        this.clazz = clazz;
+    }
+
+    public T parse(String line) {
         LineDefinition lineDefinition = forClass(clazz);
 
         try {

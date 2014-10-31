@@ -2,8 +2,6 @@ package org.parsemylegacy.parser;
 
 import java.io.*;
 import java.util.List;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.toList;
 
@@ -25,18 +23,16 @@ public class Parser {
             throw new IllegalArgumentException("No input provided! Use Parser#from(InputStream input)");
         }
 
+        LineParser<T> lineParser = new LineParser<>(clazz);
+
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
             return reader
                     .lines()
-                    .map((line) -> LineParser.parse(clazz, line))
+                    .map(lineParser::parse)
                     .collect(toList());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
     }
 
-    public <T> Stream<T> stream(Class<T> clazz) {
-        Iterable<T> iterable = () -> parse(clazz).iterator();
-        return StreamSupport.stream(iterable.spliterator(), false);
-    }
 }

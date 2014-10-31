@@ -6,9 +6,7 @@ import org.parsemylegacy.examples.PersonWithId;
 
 import java.io.InputStream;
 import java.util.List;
-import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.parsemylegacy.parser.Parser.parser;
 
@@ -28,10 +26,9 @@ public class ParserTest {
         }
     }
 
-
     @Test
     public void should_parse_people_from_text_file() {
-        InputStream input = ParserTest.class.getClassLoader().getResourceAsStream("people.txt");
+        InputStream input = ParserTest.class.getResourceAsStream("/people.txt");
         List<Person> people = parser().from(input).parse(Person.class);
         assertThat(people).hasSize(3);
         assertThat(people).containsExactly(
@@ -40,17 +37,6 @@ public class ParserTest {
                 new Person("SAUL", "GOODMAN")
         );
     }
-
-    @Test
-    public void should_stream_people_from_text_file() {
-        InputStream input = ParserTest.class.getClassLoader().getResourceAsStream("people.txt");
-        Stream<Person> peopleStream = parser().from(input).stream(Person.class);
-        // Who is W.W. ? :-)
-        List<Person> people = peopleStream.filter((p) -> p.getFirstname().charAt(0) == p.getLastname().charAt(0)).collect(toList());
-        assertThat(people).hasSize(1);
-        assertThat(people).containsExactly(new Person("WALTER", "WHITE"));
-    }
-
 
     @Test
     public void should_parse_people_with_ids_from_text_file() {

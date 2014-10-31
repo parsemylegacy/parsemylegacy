@@ -10,7 +10,7 @@ public class LineParserTest {
     @Test
     public void should_parse_line() throws Exception {
         String line = "WALTER                        WHITE                         ";
-        Person person = LineParser.parse(Person.class, line);
+        Person person = new LineParser<>(Person.class).parse(line);
         assertThat(person.getFirstname()).isEqualTo("WALTER");
         assertThat(person.getLastname()).isEqualTo("WHITE");
     }
