@@ -2,8 +2,8 @@ package org.parsemylegacy.definition;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.lang.Math.max;
 
@@ -17,24 +17,8 @@ public class LineDefinition {
         return length;
     }
 
-    public void setLength(int length) {
-        this.length = length;
-    }
-
     public List<ColumnDefinition> getColumnDefinitions() {
-        ArrayList<ColumnDefinition> copy = new ArrayList<>();
-        copy.addAll(columnDefinitions);
-        return copy;
-    }
-
-    public LineDefinition add(ColumnDefinition columnDefinition) {
-        this.columnDefinitions.add(columnDefinition);
-        return this;
-    }
-
-    public LineDefinition addAll(List<ColumnDefinition> columnDefinitions) {
-        this.columnDefinitions.addAll(columnDefinitions);
-        return this;
+        return new ArrayList<>(columnDefinitions);
     }
 
     public static LineDefinition fromClass(Class<?> clazz) {
@@ -42,13 +26,12 @@ public class LineDefinition {
         if (line != null) {
             LineDefinition lineDefinition = new LineDefinition();
 
-            List<ColumnDefinition> unsortedColumnDefinitions = new ArrayList<>();
             Field[] fields = clazz.getDeclaredFields();
             for (Field field : fields) {
                 Column column = field.getAnnotation(Column.class);
                 if (column != null) {
                     field.setAccessible(true);
-                    unsortedColumnDefinitions.add(
+                    lineDefinition.columnDefinitions.add(
                             new ColumnDefinition(
                                     field, column.from(), column.to(),
                                     column.trim(), column.trimCharacter(), column.trimDirection()
@@ -57,19 +40,12 @@ public class LineDefinition {
                 }
             }
 
-            // Sort column definitions
-            List<ColumnDefinition> sortedColumnDefinitions = unsortedColumnDefinitions
-                    .stream()
-                    .sorted((c1, c2) -> Integer.compare(c1.from(), c2.from()))
-                    .collect(Collectors.toList());
-            lineDefinition.addAll(sortedColumnDefinitions);
-
-            // Set line length
-            int maxColumnTo = sortedColumnDefinitions.get(sortedColumnDefinitions.size() - 1).to();
-            lineDefinition.setLength(max(line.length(), maxColumnTo));
+            // Sort column definitions and set line length
+            Collections.sort(lineDefinition.columnDefinitions, (c1, c2) -> Integer.compare(c1.from(), c2.from()));
+            int maxColumnTo = lineDefinition.columnDefinitions.get(lineDefinition.columnDefinitions.size() - 1).to();
+            lineDefinition.length = max(line.length(), maxColumnTo);
 
             return lineDefinition;
-
         }
         throw new IllegalArgumentException("Class " + clazz + " is not annotated with " + Line.class);
     }

@@ -2,6 +2,7 @@ package org.parsemylegacy.definition;
 
 import org.junit.Test;
 import org.parsemylegacy.examples.Person;
+import org.parsemylegacy.examples.PersonWithFiller;
 import org.parsemylegacy.examples.UnsortedPerson;
 import org.parsemylegacy.utils.TrimDirection;
 
@@ -58,5 +59,13 @@ public class LineDefinitionTest {
                         new ColumnDefinition(personFirstnameField, 34, 63, true, ' ', TrimDirection.RIGHT),
                         new ColumnDefinition(personLastnameField, 64, 93, true, ' ', TrimDirection.RIGHT)
                 );
+    }
+
+    @Test
+    public void should_create_line_definition_with_length() {
+        LineDefinition lineDefinition = fromClass(PersonWithFiller.class);
+        assertThat(lineDefinition).isNotNull();
+
+        assertThat(lineDefinition.getLength()).isEqualTo(100);
     }
 }
