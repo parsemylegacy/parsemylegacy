@@ -5,25 +5,16 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-public class Parser {
+public class Parser<T> {
 
-    private InputStream input;
+    private final Class<T> clazz;
 
-    public static Parser parser() {
-        return new Parser();
+    public Parser(Class<T> clazz) {
+        this.clazz = clazz;
     }
 
-    public Parser from(InputStream input) {
-        this.input = input;
-        return this;
-    }
-
-    public <T> List<T> parse(Class<T> clazz) {
-        if (this.input == null) {
-            throw new IllegalArgumentException("No input provided! Use Parser#from(InputStream input)");
-        }
-
-        LineParser<T> lineParser = new LineParser<>(clazz);
+    public List<T> parse(InputStream input) {
+        LineParser<T> lineParser = new LineParser<>(this.clazz);
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
             return reader
